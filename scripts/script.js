@@ -1,7 +1,15 @@
-const images = document.querySelectorAll('.animals-list li img');
+const listaImagemPets = document.querySelectorAll('.animals-list.js-tabmenu li');
+const listaDescricaoPets = document.querySelectorAll('.description-animals.js-tabcontent section');
 
-images.forEach((image) => {
-    image.onmouseover = () => {
-        console.log('passou o mouse')
-    };
-});
+function tornarVisivelDescricaoAnimalSelecionado(indice) {
+    listaDescricaoPets.forEach((descricaoPet) => {
+        descricaoPet.classList.remove('ativo');
+    });    
+    
+    listaDescricaoPets[indice].classList.add('ativo');
+}
+
+listaImagemPets.forEach((imagemPet, indice) => {
+    imagemPet.onmouseover = () => tornarVisivelDescricaoAnimalSelecionado(indice)
+}); 
+

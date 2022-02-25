@@ -116,6 +116,14 @@ img {
     background: #faf6ed;
 }
 
+.description-animals.js-tabcontent section {
+    display: none;
+}
+
+.description-animals.js-tabcontent section.ativo {
+    display: block;
+}
+
 .faq-list {
     grid-column: 2 / 4;
 }
