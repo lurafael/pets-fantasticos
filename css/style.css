@@ -116,14 +116,6 @@ img {
     background: #faf6ed;
 }
 
-.description-animals.js-tabcontent section {
-    display: none;
-}
-
-.description-animals.js-tabcontent section.ativo {
-    display: block;
-}
-
 .faq-list {
     grid-column: 2 / 4;
 }
@@ -133,6 +125,8 @@ img {
     font-weight: bold;
     margin: 2rem 0 .5rem;
     color: #e54;
+    cursor: pointer;
+    user-select: none;
 }
 
 .faq-list dt::before {
@@ -183,6 +177,37 @@ img {
     font-weight: bold;
 }
 
+/* Manipulação JS */
+
+.description-animals.js-tabcontent section {
+    display: none;
+}
+
+.description-animals.js-tabcontent section.ativo {
+    display: block;
+    animation: show 1.2s forwards;
+}
+
+.faq-list.js-accordion dt::after {
+    content: '⮧';
+    margin-left: 10px;
+}
+
+.faq-list.js-accordion dt.ativo::after {
+    content: '⮥';
+}
+
+.faq-list.js-accordion dd {
+    display: none;
+}
+
+.faq-list.js-accordion dd.ativo {
+    display: block;
+    animation: slideDown 1.5s forwards;
+}
+
+/* Efeitos (Animações, Media Query) */
+
 @media (max-width: 700px) {
     body {
         grid-template-columns: 1fr;
@@ -205,5 +230,27 @@ img {
     }
     .copyright {
         margin-bottom: 0;
+    }
+}
+
+@keyframes show {
+    from {
+        opacity: 0;
+        transform: translate3d(-30px, 0, 0);
+    }    
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        max-height: 300px;
+    }    
+    to {
+        opacity: 1;
+        max-height: 300px;
     }
 }
