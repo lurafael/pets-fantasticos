@@ -1,3 +1,7 @@
+lidarComDescricaoAoCliqueNoPet();
+manipularAccordionList();
+lidarComScrollDaPagina();
+
 function lidarComDescricaoAoCliqueNoPet() {
     //Pegar lista de imagem dos pets e outra da descrição deles
     //Adicionar a classe "ativo" na descrição do pet selecionado (que o usuário passou com o mouse em cima)
@@ -17,7 +21,9 @@ function lidarComDescricaoAoCliqueNoPet() {
     }
 
     listaImagemPets.forEach((imagemPet, indice) => {
-        imagemPet.onmouseover = () => tornarVisivelDescricaoAnimalSelecionado(indice)
+        imagemPet.addEventListener('mousemove', () => {
+            tornarVisivelDescricaoAnimalSelecionado(indice);
+        }); 
     }); 
 }
 
@@ -38,10 +44,11 @@ function manipularAccordionList() {
 }
 
 function lidarComScrollDaPagina() {
+    //Scroll Suave da página ao clicar no menu:
     //Pegar a lista de links do menu e adicionar evento de clique
     //Ao clicar, fazer um scroll suave até o início da section vinculada ao item do menu que foi clicado.
 
-    const cabecalho = document.querySelectorAll('.js-menu li');
+    const cabecalho = document.querySelectorAll('.js-menu a[href^="#"]');
 
     function ativarScrollSuave(event) {
         event.preventDefault();
@@ -55,4 +62,30 @@ function lidarComScrollDaPagina() {
     }
 
     cabecalho.forEach(itemCabecalho => itemCabecalho.addEventListener('click', ativarScrollSuave));
+
+    //Animar Sections ao "Scrollar" pela página:
+    //Adicionar um evento de scroll no window que fique observando a movimentação da página
+    //Pegar todas as sections da página
+    //Ocultar todas as sections com o "opacity"
+    //Quando o scroll chegar na section, adicionar a classe ativo e trazer a section
+    //Ao passar pelas sections, animar igual a animação da descrição dos pets
+    
+    //Ajuste: Assim que a tela atingir 60% de "espaço em branco" da proxima section, já trazer a próxima section para não ficar um espaço em branco muito grande, fica feio para o usuário.
+
+    const secoes = document.querySelectorAll('.js-scroll');
+    const metadeDaTela = window.innerHeight * 0.6;
+
+    function animarScroll() {
+        secoes.forEach(secao => {
+            const topoDaSecao = secao.getBoundingClientRect().top;
+            const habilitarVisibilidadeDaSecao = (topoDaSecao - metadeDaTela) < 0;
+
+            if(habilitarVisibilidadeDaSecao) {
+                secao.classList.add('ativo');
+            }
+        });
+    }
+
+    animarScroll();
+    window.addEventListener('scroll', animarScroll);
 }
