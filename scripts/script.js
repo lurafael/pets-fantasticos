@@ -26,6 +26,7 @@ function manipularAccordionList() {
     //Adicionar display:none em todas as descrições que não tiverem sido clicadas
     //Adicionar seta indicado se aquele item está desdobrado ou não 
     //Adicionar animação para desdobrar mais suave
+    
     const listaAccordion = document.querySelectorAll('.js-accordion dt');
 
     function lidarComCliqueNoAccordion() {
@@ -36,5 +37,22 @@ function manipularAccordionList() {
     listaAccordion.forEach(itemAccordion => itemAccordion.addEventListener('click', lidarComCliqueNoAccordion));
 }
 
-lidarComDescricaoAoCliqueNoPet();
-manipularAccordionList();
+function lidarComScrollDaPagina() {
+    //Pegar a lista de links do menu e adicionar evento de clique
+    //Ao clicar, fazer um scroll suave até o início da section vinculada ao item do menu que foi clicado.
+
+    const cabecalho = document.querySelectorAll('.js-menu li');
+
+    function ativarScrollSuave(event) {
+        event.preventDefault();
+        const itemMenuClicado = event.target.getAttribute('href');
+        const secaoClicada = document.querySelector(itemMenuClicado);
+
+        secaoClicada.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+
+    cabecalho.forEach(itemCabecalho => itemCabecalho.addEventListener('click', ativarScrollSuave));
+}
